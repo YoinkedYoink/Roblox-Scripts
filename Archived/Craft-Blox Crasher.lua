@@ -8,5 +8,5 @@ while true do
     local Target = game:GetService("ReplicatedStorage").VisualRemotes.GetChunk;
     Target:FireServer(number_1, number_2);
     print("loaded chunk")
-    wait()
+    wait(0.1)
 end
