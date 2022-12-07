@@ -9,7 +9,7 @@ rconsolename("For Debug")
 
 --Presetting Values :)
 _G.CFrameFlySpeed = 1
-_G.CFrameFlyHeight = 30
+_G.CFrameFlyHeight = -340
 FOV = 90
 HipHeight = 0
 
@@ -54,7 +54,7 @@ local CFrameFlySpeed = SecondPage.AddSlider("CFrame Fly Speed(Reccommed 1)", {Mi
      _G.CFrameFlySpeed = Value
 end)
 
-local CFrameFlyHeight = SecondPage.AddSlider("CFrame Fly Height(Reccommed 30)", {Min = 12, Max = 100, Def = 30}, function(Value)
+local CFrameFlyHeight = SecondPage.AddSlider("CFrame Fly Height(Reccommed 340)", {Min = -350, Max = -300, Def = -340}, function(Value)
     _G.CFrameFlyHeight = Value
 end)
 
@@ -76,13 +76,13 @@ end)
 
 local ThirdPage = MainUI.AddPage("Visuals")
 
-local FOVSlider = ThirdPage.AddSlider("FOV(Detected)", {Min = 1, Max = 120, Def = 90}, function(Value)
+local FOVSlider = ThirdPage.AddSlider("FOV(Use Disabler)", {Min = 1, Max = 120, Def = 90}, function(Value)
     FOV = Value
     rconsoleprint("FOV Value is "..FOV)
     rconsoleprint("\n")
 end)
 
-local FOVButton = ThirdPage.AddToggle("Set FOV(Detected)", false, function(Value)
+local FOVButton = ThirdPage.AddToggle("Set FOV(Use Disabler)", false, function(Value)
     _G.FOVSet = Value
     rconsoleprint("Set FOV to "..FOV)
     rconsoleprint("\n")
@@ -223,15 +223,15 @@ end)
 
 
 
-local SixthPage = MainUI.AddPage("Detected Shit")
+local SixthPage = MainUI.AddPage("Need Disabler")
 
-local HipHeightSlider = SixthPage.AddSlider("Hip Height(Detected)", {Min = 0, Max = 50, Def = 0}, function(Value)
+local HipHeightSlider = SixthPage.AddSlider("Hip Height", {Min = 0, Max = 50, Def = 0}, function(Value)
     HipHeight = Value
     rconsoleprint(HipHeight.." Slider HipHeight")
     rconsoleprint("\n")
 end)
 
-local HipHeightButton = SixthPage.AddButton("Set Hip Height(Detected)", function()
+local HipHeightButton = SixthPage.AddButton("Set Hip Height", function()
     rconsoleprint(HipHeight.." Set HipHeight")
     rconsoleprint("\n")
     Player.Character.Humanoid.HipHeight = HipHeight
@@ -245,6 +245,13 @@ end)
 
 local SeventhPage = MainUI.AddPage("Testing")
 
+local AntiAim = SeventhPage.AddToggle("AntiAim", false, function(Value)
+    _G.AntiAim = Value
+    while _G.AntiAim do
+        wait()
+    end
+end)
+
 local HahaFunny = SeventhPage.AddToggle("Do a funny", false, function(Value)
     _G.Funny = Value
     while _G.Funny do
@@ -255,11 +262,14 @@ local HahaFunny = SeventhPage.AddToggle("Do a funny", false, function(Value)
     end
 end)
 
-local ONYXDISABLER = SeventhPage.AddButton("ONYX Disabler", function()
-    Workspace.Terrain:remove()
+local ONYXDISABLER = SeventhPage.AddButton("Full ONYX Disabler (Breaks Weapons)", function()
+    loadstring(game:HttpGet"https://pastebin.com/raw/LD1v6fNn")()
+    leaning = Instance.new("NumberValue", game:GetService("Workspace")[Player.Name]["ONYX Client"])
+    leaning.Name = "Lean"
+    rconsolewarn("Disabler Used!")
 end)
 
-local ServerLagger = SeventhPage.AddToggle("Increase receving and ping a bit", false, function(Value)
+local ServerLagger = SeventhPage.AddToggle("Increase receving and ping a bit(AK47)", false, function(Value)
     _G.Lag = Value
     while _G.Lag do
         userdata_1 = game:GetService("ReplicatedStorage").ONYX.Guns.AK47;
