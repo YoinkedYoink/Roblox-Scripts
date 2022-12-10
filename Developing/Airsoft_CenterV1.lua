@@ -34,11 +34,9 @@ end)
 
 local SecondPage = MainUI.AddPage("Movement")
 
-local BetterMovement = SecondPage.AddButton("No Jump Delay(patched)", function()
+local BetterMovement = SecondPage.AddButton("No Jump Delay", function()
     OldJumpDelay = Player.Character["Jump Delay"]
-    local JumpDelay = Instance.new("LocalScript", Player.Character)
-    JumpDelay.Name = "Jump Delay"
-    OldJumpDelay:remove()
+    OldJumpDelay.Disabled = true
 end)
 
 local GlitchySpeed = SecondPage.AddToggle("Glitchy Speed", false, function(Value)
@@ -60,7 +58,7 @@ end)
 
 local CFrameFly = SecondPage.AddToggle("CFrameFly", false, function(Value)
     _G.CFrameFly = Value
-    loadstring(game:HttpGet"https://pastebin.com/raw/CUTcjND0")()
+    loadstring(game:HttpGet"https://pastebin.com/raw/deJdYep7")()
 end)
 
 
@@ -263,9 +261,7 @@ local HahaFunny = SeventhPage.AddToggle("Do a funny", false, function(Value)
 end)
 
 local ONYXDISABLER = SeventhPage.AddButton("ONYX Disabler(patched)", function()
-    loadstring(game:HttpGet"https://pastebin.com/raw/LD1v6fNn")()
-    leaning = Instance.new("NumberValue", game:GetService("Workspace")[Player.Name]["ONYX Client"])
-    leaning.Name = "Lean"
+    loadstring(game:HttpGet"https://pastebin.com/64K0qYfG")()
     rconsolewarn("Disabler Used!")
 end)
 
