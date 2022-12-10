@@ -34,7 +34,7 @@ end)
 
 local SecondPage = MainUI.AddPage("Movement")
 
-local BetterMovement = SecondPage.AddButton("No Jump Delay(patched for now)", function()
+local BetterMovement = SecondPage.AddButton("No Jump Delay(patched)", function()
     OldJumpDelay = Player.Character["Jump Delay"]
     local JumpDelay = Instance.new("LocalScript", Player.Character)
     JumpDelay.Name = "Jump Delay"
@@ -71,13 +71,13 @@ end)
 
 local ThirdPage = MainUI.AddPage("Visuals")
 
-local FOVSlider = ThirdPage.AddSlider("FOV(patched for now)", {Min = 1, Max = 120, Def = 90}, function(Value)
+local FOVSlider = ThirdPage.AddSlider("FOV(patched)", {Min = 1, Max = 120, Def = 90}, function(Value)
     FOV = Value
     rconsoleprint("FOV Value is "..FOV)
     rconsoleprint("\n")
 end)
 
-local FOVButton = ThirdPage.AddToggle("Set FOV(patched for now)", false, function(Value)
+local FOVButton = ThirdPage.AddToggle("Set FOV(patched)", false, function(Value)
     _G.FOVSet = Value
     rconsoleprint("Set FOV to "..FOV)
     rconsoleprint("\n")
@@ -101,13 +101,13 @@ local ShitEsp = ThirdPage.AddToggle("Highlight ESP", false, function(Value)
 end)
 
 
-local FourthPage = MainUI.AddPage("GunMods(patched for now)")
+local FourthPage = MainUI.AddPage("GunMods")
 
-local FireRateSlider = FourthPage.AddSlider("FireRate(Rounds Per Min)(patched for now)", {Min = 1, Max = 2000, Def = 600}, function(Value)
+local FireRateSlider = FourthPage.AddSlider("FireRate(Rounds Per Min)", {Min = 1, Max = 2000, Def = 600}, function(Value)
     _G.FireRate = Value
 end)
 
-local FireRateSet = FourthPage.AddToggle("Set FireRate(patched for now)", false, function(Value)
+local FireRateSet = FourthPage.AddToggle("Set FireRate", false, function(Value)
     _G.FireRateSet = Value
     while _G.FireRateSet do
         Player.Character.ChildAdded:Connect(function(NewChild)
@@ -120,21 +120,26 @@ local FireRateSet = FourthPage.AddToggle("Set FireRate(patched for now)", false,
     end
 end)
 
-local INFAmmo = FourthPage.AddToggle("Inf Ammo(patched for now)", false, function(Value)
+local INFAmmo = FourthPage.AddToggle("Inf Ammo", false, function(Value)
     _G.InfAmmo = Value
     while _G.InfAmmo do
         Player.Character.ChildAdded:Connect(function(NewChild)
             if NewChild:IsA("Tool") then
-                require(Player.Character[NewChild.Name].GunConfig).Ammo = math.huge
-                require(Player.Character[NewChild.Name].GunConfig).MagSize = math.huge
-                wait()
+                SetAmmo = require(Player.Character[NewChild.Name].GunConfig).Ammo
+                if SetAmmo <= 0 then
+                    SetAmmo = 20
+                end
+                while Player.Character:FindFirstChild(NewChild.Name) and _G.InfAmmo do
+                    require(Player.Character[NewChild.Name].GunConfig).Ammo = SetAmmo
+                    wait(0.1)
+                end
             end
         end)
         wait()
     end
 end)
 
-local FullAuto = FourthPage.AddToggle("Full Auto(patched for now)", false, function(Value)
+local FullAuto = FourthPage.AddToggle("Full Auto", false, function(Value)
     _G.FullAuto = Value
     while _G.FullAuto do
         Player.Character.ChildAdded:Connect(function(NewChild)
@@ -148,7 +153,7 @@ local FullAuto = FourthPage.AddToggle("Full Auto(patched for now)", false, funct
     end
 end)
 
-local DisableTracer = FourthPage.AddToggle("Disable Tracer(patched for now)", false, function(Value)
+local DisableTracer = FourthPage.AddToggle("Disable Tracer", false, function(Value)
     _G.DisableTracer = Value
     while _G.DisableTracer do
         Player.Character.ChildAdded:Connect(function(NewChild)
@@ -162,7 +167,7 @@ local DisableTracer = FourthPage.AddToggle("Disable Tracer(patched for now)", fa
     end
 end)
 
-local RemoveSway = FourthPage.AddToggle("Better Weapon(patched for now)", false, function(Value)
+local RemoveSway = FourthPage.AddToggle("Better Weapon", false, function(Value)
     _G.BetterWeapon = Value
     while _G.BetterWeapon do
         Player.Character.ChildAdded:Connect(function(NewChild)
@@ -218,7 +223,7 @@ end)
 
 
 
-local SixthPage = MainUI.AddPage("Need Disabler(patched for now)")
+local SixthPage = MainUI.AddPage("Old stuff")
 
 local HipHeightSlider = SixthPage.AddSlider("Hip Height(patched for now)", {Min = 0, Max = 50, Def = 0}, function(Value)
     HipHeight = Value
@@ -257,7 +262,7 @@ local HahaFunny = SeventhPage.AddToggle("Do a funny", false, function(Value)
     end
 end)
 
-local ONYXDISABLER = SeventhPage.AddButton("Full ONYX Disabler (patched for now)", function()
+local ONYXDISABLER = SeventhPage.AddButton("ONYX Disabler(patched)", function()
     loadstring(game:HttpGet"https://pastebin.com/raw/LD1v6fNn")()
     leaning = Instance.new("NumberValue", game:GetService("Workspace")[Player.Name]["ONYX Client"])
     leaning.Name = "Lean"
