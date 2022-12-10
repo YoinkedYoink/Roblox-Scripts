@@ -1,8 +1,8 @@
 --Coded By YoinkedYoink#4488
 --Using TwinkUI lib from https://github.com/bloodball/UI-Librarys/blob/main/TwinkLib
---New update added practically nothing
---The src of ONYX may be in the game just it obfuscated
---Also ONYX is a lot slower and takes a few secs to ban
+--new anticheat update
+--more active anticheat dev, yname left
+--niceeeeeeeee
 local Player = game:GetService("Players").LocalPlayer
 local Workspace = game:GetService("Workspace")
 rconsolename("For Debug")
@@ -34,7 +34,7 @@ end)
 
 local SecondPage = MainUI.AddPage("Movement")
 
-local BetterMovement = SecondPage.AddButton("No Jump Delay", function()
+local BetterMovement = SecondPage.AddButton("No Jump Delay(patched for now)", function()
     OldJumpDelay = Player.Character["Jump Delay"]
     local JumpDelay = Instance.new("LocalScript", Player.Character)
     JumpDelay.Name = "Jump Delay"
@@ -54,18 +54,13 @@ local CFrameFlySpeed = SecondPage.AddSlider("CFrame Fly Speed(Reccommed 1)", {Mi
      _G.CFrameFlySpeed = Value
 end)
 
-local CFrameFlyHeight = SecondPage.AddSlider("CFrame Fly Height(Reccommed 340)", {Min = -350, Max = -300, Def = -340}, function(Value)
+local CFrameFlyHeight = SecondPage.AddSlider("CFrame Fly Height(Reccommed -340 to -200)", {Min = -350, Max = 999, Def = -340}, function(Value)
     _G.CFrameFlyHeight = Value
 end)
 
-local CFrameFly = SecondPage.AddToggle("CFrameFly(Sometimes kicks)", false, function(Value)
+local CFrameFly = SecondPage.AddToggle("CFrameFly", false, function(Value)
     _G.CFrameFly = Value
-    loadstring(game:HttpGet"https://pastebin.com/raw/tVQMTsV9")()
-    while _G.CFrameFly do
-    Player.Character.HumanoidRootPart.Anchored = true
-    Player.Character.HumanoidRootPart.CFrame = CFrame.new(Player.Character.HumanoidRootPart.CFrame.x, _G.CFrameFlyHeight, Player.Character.HumanoidRootPart.CFrame.z)
-    wait()
-    end
+    loadstring(game:HttpGet"https://pastebin.com/raw/CUTcjND0")()
 end)
 
 
@@ -76,13 +71,13 @@ end)
 
 local ThirdPage = MainUI.AddPage("Visuals")
 
-local FOVSlider = ThirdPage.AddSlider("FOV(Use Disabler)", {Min = 1, Max = 120, Def = 90}, function(Value)
+local FOVSlider = ThirdPage.AddSlider("FOV(patched for now)", {Min = 1, Max = 120, Def = 90}, function(Value)
     FOV = Value
     rconsoleprint("FOV Value is "..FOV)
     rconsoleprint("\n")
 end)
 
-local FOVButton = ThirdPage.AddToggle("Set FOV(Use Disabler)", false, function(Value)
+local FOVButton = ThirdPage.AddToggle("Set FOV(patched for now)", false, function(Value)
     _G.FOVSet = Value
     rconsoleprint("Set FOV to "..FOV)
     rconsoleprint("\n")
@@ -106,13 +101,13 @@ local ShitEsp = ThirdPage.AddToggle("Highlight ESP", false, function(Value)
 end)
 
 
-local FourthPage = MainUI.AddPage("GunMods")
+local FourthPage = MainUI.AddPage("GunMods(patched for now)")
 
-local FireRateSlider = FourthPage.AddSlider("FireRate(Rounds Per Min)", {Min = 1, Max = 2000, Def = 600}, function(Value)
+local FireRateSlider = FourthPage.AddSlider("FireRate(Rounds Per Min)(patched for now)", {Min = 1, Max = 2000, Def = 600}, function(Value)
     _G.FireRate = Value
 end)
 
-local FireRateSet = FourthPage.AddToggle("Set FireRate", false, function(Value)
+local FireRateSet = FourthPage.AddToggle("Set FireRate(patched for now)", false, function(Value)
     _G.FireRateSet = Value
     while _G.FireRateSet do
         Player.Character.ChildAdded:Connect(function(NewChild)
@@ -125,7 +120,7 @@ local FireRateSet = FourthPage.AddToggle("Set FireRate", false, function(Value)
     end
 end)
 
-local INFAmmo = FourthPage.AddToggle("Inf Ammo", false, function(Value)
+local INFAmmo = FourthPage.AddToggle("Inf Ammo(patched for now)", false, function(Value)
     _G.InfAmmo = Value
     while _G.InfAmmo do
         Player.Character.ChildAdded:Connect(function(NewChild)
@@ -139,7 +134,7 @@ local INFAmmo = FourthPage.AddToggle("Inf Ammo", false, function(Value)
     end
 end)
 
-local FullAuto = FourthPage.AddToggle("Full Auto", false, function(Value)
+local FullAuto = FourthPage.AddToggle("Full Auto(patched for now)", false, function(Value)
     _G.FullAuto = Value
     while _G.FullAuto do
         Player.Character.ChildAdded:Connect(function(NewChild)
@@ -153,7 +148,7 @@ local FullAuto = FourthPage.AddToggle("Full Auto", false, function(Value)
     end
 end)
 
-local DisableTracer = FourthPage.AddToggle("Disable Tracer", false, function(Value)
+local DisableTracer = FourthPage.AddToggle("Disable Tracer(patched for now)", false, function(Value)
     _G.DisableTracer = Value
     while _G.DisableTracer do
         Player.Character.ChildAdded:Connect(function(NewChild)
@@ -167,7 +162,7 @@ local DisableTracer = FourthPage.AddToggle("Disable Tracer", false, function(Val
     end
 end)
 
-local RemoveSway = FourthPage.AddToggle("Better Weapon", false, function(Value)
+local RemoveSway = FourthPage.AddToggle("Better Weapon(patched for now)", false, function(Value)
     _G.BetterWeapon = Value
     while _G.BetterWeapon do
         Player.Character.ChildAdded:Connect(function(NewChild)
@@ -223,15 +218,15 @@ end)
 
 
 
-local SixthPage = MainUI.AddPage("Need Disabler")
+local SixthPage = MainUI.AddPage("Need Disabler(patched for now)")
 
-local HipHeightSlider = SixthPage.AddSlider("Hip Height", {Min = 0, Max = 50, Def = 0}, function(Value)
+local HipHeightSlider = SixthPage.AddSlider("Hip Height(patched for now)", {Min = 0, Max = 50, Def = 0}, function(Value)
     HipHeight = Value
     rconsoleprint(HipHeight.." Slider HipHeight")
     rconsoleprint("\n")
 end)
 
-local HipHeightButton = SixthPage.AddButton("Set Hip Height", function()
+local HipHeightButton = SixthPage.AddButton("Set Hip Height(patched for now)", function()
     rconsoleprint(HipHeight.." Set HipHeight")
     rconsoleprint("\n")
     Player.Character.Humanoid.HipHeight = HipHeight
@@ -262,7 +257,7 @@ local HahaFunny = SeventhPage.AddToggle("Do a funny", false, function(Value)
     end
 end)
 
-local ONYXDISABLER = SeventhPage.AddButton("Full ONYX Disabler (Breaks Weapons)", function()
+local ONYXDISABLER = SeventhPage.AddButton("Full ONYX Disabler (patched for now)", function()
     loadstring(game:HttpGet"https://pastebin.com/raw/LD1v6fNn")()
     leaning = Instance.new("NumberValue", game:GetService("Workspace")[Player.Name]["ONYX Client"])
     leaning.Name = "Lean"
