@@ -1,8 +1,13 @@
-getgenv().StewartLittle = true --enable/disable
+getgenv().StewartLittle = true --enable/disable script
+
+--aimbot settings
 getgenv().FOV = 15 --FOV of aimbot
 getgenv().TriggerKey = "Z" --Key to enable aimbot, X, E, Q, F, etc...
 getgenv().TeamCheck = true --Team check, self explanitory
---getgenv().Hitpart = "Head" --Head,Torso,LowerTorso,HumanoidRootPart,LeftFoot,etc... (It is late, putting it in later)
+getgenv().Hitpart = "Head" --Head,Torso,LowerTorso,HumanoidRootPart,LeftFoot,etc...
+
+--extended settings
+getgenv().autoshoot = false
 
 rconsoleprint("Opening Console")
 rconsoleclear()
@@ -26,7 +31,7 @@ function CastRayToPlayers()
                     local cam = math.abs(getgenv().FOV/((Workspace.CurrentCamera.FieldOfView*(CurCamV.X/CurCamV.Y))/CurCamV.X))
                     if (ScreenP and ScreenP.Z > 0) and (Vector2.new(CurCamV.X/2,CurCamV.Y/2) - Vector2.new(ScreenP.X, ScreenP.Y)).Magnitude <= cam/2 then
                         if LocalPlayer.Character:FindFirstChild("Head") then
-                            Diwection = CFrame.lookAt(LocalPlayer.Character.Head.Position, i.Character.Head.Position)
+                            Diwection = CFrame.lookAt(LocalPlayer.Character.Head.Position, i.Character[getgenv().Hitpart].Position)
                             raycwast = Workspace:Raycast(LocalPlayer.Character.Head.Position, Diwection.lookVector*2000)
                             if raycwast ~= nil then
                                 if string.match(tostring(raycwast.Instance:GetFullName()), LocalPlayer.Name) == nil then
@@ -60,11 +65,22 @@ function CastRayToPlayers()
     end
 end
 
+function shoot()
+    mouse1press()
+    rconsolewarn("Mouse Down")
+    task.wait()
+    mouse1release()
+    rconsolewarn("Mouse Up")
+end
+
 while getgenv().StewartLittle do
     if UIS:IsKeyDown(Enum.KeyCode[getgenv().TriggerKey]) then
         CastRayToPlayers()
         if getgenv().Lookie ~= nil then
             Workspace.CurrentCamera.CFrame = getgenv().Lookie
+            if getgenv().autoshoot then
+                shoot()
+            end
             getgenv().Lookie = nil
         end
         task.wait()
