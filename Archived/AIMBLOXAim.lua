@@ -1,7 +1,7 @@
 getgenv().StewartLittle = true --enable/disable script
 
 --aimbot settings
-getgenv().FOV = 50 --FOV of aimbot
+getgenv().FOV = 30 --FOV of aimbot
 --use X-Mouae thing to bind M4/M5 to keymul
 getgenv().TriggerKey = "KeypadMultiply" --Key to enable aimbot, X, E, Q, F, etc...
 getgenv().Hitpart = "Head" --Head,Torso,LowerTorso,HumanoidRootPart,LeftFoot,etc...
@@ -89,11 +89,13 @@ function CastRayToPlayers()
 end
 
 function shoot()
+    if game:GetService("Players").LocalPlayer.PlayerGui.Crosshair.Crosshair.TopFrame.BackgroundColor3 == Color3.fromRGB(255, 0, 0) then
     mouse1press()
     --rconsolewarn("Mouse Down")
     task.wait()
     mouse1release()
     --rconsolewarn("Mouse Up")
+    end
 end
 
 while getgenv().StewartLittle do
