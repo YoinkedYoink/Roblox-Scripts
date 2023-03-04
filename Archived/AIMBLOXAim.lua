@@ -5,7 +5,7 @@ getgenv().FOV = 30 --FOV of aimbot
 --use X-Mouae thing to bind M4/M5 to keymul
 getgenv().TriggerKey = "KeypadMultiply" --Key to enable aimbot, X, E, Q, F, etc...
 getgenv().Hitpart = "Head" --Head,Torso,LowerTorso,HumanoidRootPart,LeftFoot,etc...
-getgenv().Sensitivity = 7 --How much it moves mouse, 1 = instant snap
+getgenv().Sensitivity = 5 --How much it moves mouse, 1 = instant snap
 
 --extended settings
 getgenv().autoshoot = true
@@ -38,6 +38,8 @@ function CastRayToPlayers()
                 end
                 if game:GetService("Workspace").CompetitiveMap:FindFirstChild("Presets") then
                     table.insert(BlackTable, game:GetService("Workspace").CompetitiveMap.Presets)
+                end
+                if game:GetService("Workspace").CompetitiveMap:FindFirstChild("Particles") then
                     table.insert(BlackTable, game:GetService("Workspace").CompetitiveMap.Particles)
                 end
                 RaycastPR.FilterDescendantsInstances = BlackTable
