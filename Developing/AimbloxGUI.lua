@@ -120,6 +120,11 @@ AimbotTab:AddBind({
                             table.insert(BlackTable, m)
                         end
                     end
+                    if game:GetService("Workspace").CompetitiveMap:FindFirstChild("fooliage") then
+                        if game:GetService("Workspace").CompetitiveMap.fooliage:FindFirstChild("Grass") then
+                            table.insert(BlackTable, game:GetService("Workspace").CompetitiveMap.fooliage.Grass)
+                        end
+                    end
                     if game:GetService("Workspace").CompetitiveMap:FindFirstChild("Presets") then
                         table.insert(BlackTable, game:GetService("Workspace").CompetitiveMap.Presets)
                     end
@@ -141,9 +146,18 @@ AimbotTab:AddBind({
                                 if raycwast ~= nil then
                                     if string.match(tostring(raycwast.Instance:GetFullName()), LocalPlayer.Name) == nil then
                                         if string.match(tostring(raycwast.Instance:GetFullName()), i.Name) ~= nil then
+                                            if getgenv().mag ~= nil then
+                                                temp = ((Vector2.new(CurCamV.X/2,CurCamV.Y/2)) - (Vector2.new(ScreenP.X,ScreenP.Y))).Magnitude
+                                                if getgenv().mag > temp then
+                                                    getgenv().mag = temp
+                                                    getgenv().Lookie = Diwection
+                                                    getgenv().hiya = ScreenP
+                                                end
+                                            else
+                                                getgenv().mag = ((Vector2.new(CurCamV.X/2,CurCamV.Y/2)) - (Vector2.new(ScreenP.X,ScreenP.Y))).Magnitude
                                                 getgenv().Lookie = Diwection
                                                 getgenv().hiya = ScreenP
-                                                break;
+                                            end
                                         else
                                         end
                                     else
@@ -177,7 +191,9 @@ AimbotTab:AddBind({
                     shoot()
                 end
                 getgenv().Lookie = nil
+                getgenv().mag = nil
             end
+            getgenv().mag = nil
         end
         task.wait()
     end
