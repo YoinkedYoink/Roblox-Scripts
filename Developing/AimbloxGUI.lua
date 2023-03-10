@@ -88,7 +88,7 @@ AimbotTab:AddToggle({
             getgenv().FOVC.Visible = true
             getgenv().FOVC.ZIndex = -9999999
             getgenv().FOVC.Transparency = 0.8
-            getgenv().FOVC.Color = Color3.new(200,20,150)
+            getgenv().FOVC.Color = Color3.fromRGB(255,5,239)
             getgenv().FOVC.Thickness = 1
             getgenv().FOVC.NumSides = 200
             getgenv().FOVC.Radius = (math.abs(getgenv().FOV/((game:GetService("Workspace").CurrentCamera.FieldOfView*(CurCamV.X/CurCamV.Y))/CurCamV.X)))/2
@@ -101,6 +101,14 @@ AimbotTab:AddToggle({
                 getgenv().FOVC = Drawing.new("Circle")
             end
         end
+    end
+})
+
+AimbotTab:AddToggle({
+    Name = "Snapline",
+    Default = false,
+    Callback = function(Value)
+        getgenv().Snapline = Value
     end
 })
 
@@ -215,30 +223,52 @@ AimbotTab:AddBind({
         if Workspace:FindFirstChild(LocalPlayer.Name) then
             CastRayToPlayers()
             if getgenv().Lookie ~= nil then
+                if getgenv().Snapline then
+                    if getgenv().Sline == nil then
+                        getgenv().Sline = Drawing.new("Line")
+                    end
+                    getgenv().Sline.Visible = true
+                    getgenv().Sline.ZIndex = -99999999
+                    getgenv().Sline.Transparency = 0.6
+                    getgenv().Sline.Color = Color3.fromRGB(0,200,40)
+                    getgenv().Sline.Thickness = 2
+                    getgenv().Sline.From = Vector2.new(CurCamV.X/2,CurCamV.Y/2)
+                    getgenv().Sline.To = Vector2.new(getgenv().hiya.X, getgenv().hiya.Y)
+                elseif getgenv().Snapline == false and getgenv().Sline ~= nil then
+                    getgenv().Sline.Visible = false
+                end
                 mousemoverel( ((getgenv().hiya.X) - CurCamV.X/2)/getgenv().Sensitivity, ((getgenv().hiya.Y) - CurCamV.Y/2)/getgenv().Sensitivity )
                 if getgenv().autoshoot then
                     shoot()
                 end
-                getgenv().Lookie = nil
-                getgenv().mag = nil
+            elseif getgenv().Lookie == nil then
+                if getgenv().Sline ~= nil then
+                    getgenv().Sline.Visible = false
+                end
             end
+            getgenv().Lookie = nil
             getgenv().mag = nil
         end
         task.wait()
+    end
+    if getgenv().StewartLittle == false then
+        if getgenv().Sline ~= nil then
+            getgenv().Sline.Visible = false
+        end
     end
     end
 })
 
 
 local Movementtab = Window:MakeTab({
-    Name = "Movement (Placeholder)"
+    Name = "Movement"
 })
 
 Movementtab:AddSlider({
-    Name = "Speed Speed (Placeholder)",
+    Name = "Speed Value",
     Min = 1,
-    Max = 20,
-    Default = 2,
+    Max = 100,
+    Default = 50,
     Increment = 1,
     Callback = function(Value)
         getgenv().SpeedSpeed = Value
@@ -246,16 +276,60 @@ Movementtab:AddSlider({
 })
 
 Movementtab:AddToggle({
-    Name = "Speed (Placeholder)",
+    Name = "Speed",
     Default = false,
     Callback = function(Value)
         getgenv().Speed = Value
+        local Workspace = game:GetService("Workspace")
+        local LocalPlayer = game:GetService("Players").LocalPlayer
+        local Players = game:GetService("Players")
+        
         while getgenv().Speed do
+            if Workspace:FindFirstChild(LocalPlayer.Name) then
+                if LocalPlayer.Character:FindFirstChild("Humanoid") then
+                    LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                        if getgenv().Speed then
+                            LocalPlayer.Character.Humanoid.WalkSpeed = getgenv().SpeedSpeed
+                        end
+                    end)
+                    LocalPlayer.Character.Humanoid.WalkSpeed = getgenv().SpeedSpeed
+                end
+            end
             wait()
         end
     end
 })
 
+Movementtab:AddSlider({
+    Name = "HighJump Value",
+    Min = 0.1,
+    Max = 10,
+    Increment = 0.1,
+    Callback = function(Value)
+        getgenv().HighJumpJump = Value
+    end
+})
+
+Movementtab:AddBind({
+    Name = "HighJump",
+    Default = Enum.KeyCode.RightBracket,
+    Hold = true,
+    Callback = function(Value)
+        getgenv().HighJump = Value
+        local Workspace = game:GetService("Workspace")
+        local LocalPlayer = game:GetService("Players").LocalPlayer
+        local Players = game:GetService("Players")
+        while getgenv().HighJump do
+            if Workspace:FindFirstChild(LocalPlayer.Name) then
+                if LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(LocalPlayer.Character.HumanoidRootPart.CFrame.X,LocalPlayer.Character.HumanoidRootPart.CFrame.Y+getgenv().HighJumpJump,LocalPlayer.Character.HumanoidRootPart.CFrame.Z)
+                    LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(LocalPlayer.Character.HumanoidRootPart.Velocity.X,0,LocalPlayer.Character.HumanoidRootPart.Velocity.Z)
+                end
+            end
+            wait()
+        end
+    end
+})
 
 local Extratab = Window:MakeTab({
     Name = "Extra"
