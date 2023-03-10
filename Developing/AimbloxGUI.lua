@@ -63,6 +63,10 @@ local AimbotFOV = AimbotTab:AddSlider({
     Increment = 1,
     Callback = function(Value)
         getgenv().FOV = Value
+        if getgenv().FOVC ~= nil then
+            CurCamV = game:GetService("Workspace").CurrentCamera.ViewportSize
+            getgenv().FOVC.Radius = (math.abs(getgenv().FOV/((game:GetService("Workspace").CurrentCamera.FieldOfView*(CurCamV.X/CurCamV.Y))/CurCamV.X)))/2
+        end
     end
 })
 
@@ -72,6 +76,31 @@ AimbotTab:AddDropdown({
     Options = {"Head", "UpperTorso", "LowerTorso", "HumanoidRootPart"},
     Callback = function(Value)
         getgenv().Hitpart = Value
+    end
+})
+
+AimbotTab:AddToggle({
+    Name = "FOV Circle",
+    Default = false,
+    Callback = function(Value)
+        if Value then
+            CurCamV = game:GetService("Workspace").CurrentCamera.ViewportSize
+            getgenv().FOVC.Visible = true
+            getgenv().FOVC.ZIndex = -9999999
+            getgenv().FOVC.Transparency = 0.8
+            getgenv().FOVC.Color = Color3.new(200,20,150)
+            getgenv().FOVC.Thickness = 1
+            getgenv().FOVC.NumSides = 200
+            getgenv().FOVC.Radius = (math.abs(getgenv().FOV/((game:GetService("Workspace").CurrentCamera.FieldOfView*(CurCamV.X/CurCamV.Y))/CurCamV.X)))/2
+            getgenv().FOVC.Filled = false
+            getgenv().FOVC.Position = Vector2.new(CurCamV.X/2,CurCamV.Y/2)
+        else
+            if getgenv().FOVC ~= nil then
+                getgenv().FOVC.Visible = false
+            else
+                getgenv().FOVC = Drawing.new("Circle")
+            end
+        end
     end
 })
 
@@ -197,6 +226,33 @@ AimbotTab:AddBind({
         end
         task.wait()
     end
+    end
+})
+
+
+local Movementtab = Window:MakeTab({
+    Name = "Movement (Placeholder)"
+})
+
+Movementtab:AddSlider({
+    Name = "Speed Speed (Placeholder)",
+    Min = 1,
+    Max = 20,
+    Default = 2,
+    Increment = 1,
+    Callback = function(Value)
+        getgenv().SpeedSpeed = Value
+    end
+})
+
+Movementtab:AddToggle({
+    Name = "Speed (Placeholder)",
+    Default = false,
+    Callback = function(Value)
+        getgenv().Speed = Value
+        while getgenv().Speed do
+            wait()
+        end
     end
 })
 
