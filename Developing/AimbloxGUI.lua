@@ -283,20 +283,19 @@ Movementtab:AddToggle({
         local Workspace = game:GetService("Workspace")
         local LocalPlayer = game:GetService("Players").LocalPlayer
         local Players = game:GetService("Players")
-        
-        while getgenv().Speed do
-            if Workspace:FindFirstChild(LocalPlayer.Name) then
-                if LocalPlayer.Character:FindFirstChild("Humanoid") then
-                    LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
-                        if getgenv().Speed then
-                            LocalPlayer.Character.Humanoid.WalkSpeed = getgenv().SpeedSpeed
-                        end
-                    end)
+        LocalPlayer.CharacterAdded:Connect(function()
+            repeat
+                wait()
+            until LocalPlayer.Character:FindFirstChild("Humanoid")
+            LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+                if getgenv().Speed and Workspace:FindFirstChild(LocalPlayer.Name) then
                     LocalPlayer.Character.Humanoid.WalkSpeed = getgenv().SpeedSpeed
                 end
+            end)
+            if Workspace:FindFirstChild(LocalPlayer.Name) then
+                LocalPlayer.Character.Humanoid.WalkSpeed = getgenv().SpeedSpeed
             end
-            wait()
-        end
+        end)
     end
 })
 
