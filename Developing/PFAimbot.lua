@@ -208,3 +208,26 @@ AimbotTab:AddBind({
     end
     end
 })
+
+local VisualTab = Window:MakeTab({
+    Name = "Visuals"
+})
+
+VisualTab:AddToggle({
+    Name = "Better Viewport",
+    Default = false,
+    Callback = function(Value)
+        getgenv().BetterView = Value
+        while getgenv().BetterView do
+            for i,v in next, Workspace.CurrentCamera:GetChildren() do
+                for q,w in next, v:GetChildren() do
+                    if w.Name ~= "SightMark" then
+                        w.Transparency = 0.9
+                        w.Color = Color3.fromRGB(255,5,239)
+                    end
+                end
+            end
+            wait()
+        end
+    end
+})
