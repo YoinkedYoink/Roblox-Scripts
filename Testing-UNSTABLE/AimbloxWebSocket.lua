@@ -1,3 +1,7 @@
+--
+--DO NOT USE, USE HTTP VERSION OF THIS SCRIPT
+--
+
 --Aimblox GUI made by YoinkedYoink#4488
 --My github for more scripts: https://github.com/YoinkedYoink/Roblox-Scripts
 
